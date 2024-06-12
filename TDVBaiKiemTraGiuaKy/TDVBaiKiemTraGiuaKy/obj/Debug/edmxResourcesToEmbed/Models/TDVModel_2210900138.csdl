@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="TDVK22CNT3Lesson07DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="TDVKhoa">
+    <Key>
+      <PropertyRef Name="TDVMaKH" />
+    </Key>
+    <Property Name="TDVMaKH" Type="String" MaxLength="10" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="TDVTenKH" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TDVTrangThai" Type="Boolean" />
+    <NavigationProperty Name="TDVSinhViens" Relationship="Self.FK_TDVSinhVien_TDVKhoa" FromRole="TDVKhoa" ToRole="TDVSinhVien" />
+  </EntityType>
+  <EntityType Name="TDVSinhVien">
+    <Key>
+      <PropertyRef Name="TDVMaSV" />
+    </Key>
+    <Property Name="TDVMaSV" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+    <Property Name="TDVHoSV" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TDVTenSV" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TvcNgaySinh" Type="DateTime" Precision="0" />
+    <Property Name="TDVPhai" Type="Boolean" />
+    <Property Name="TDVPhone" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <Property Name="TDVEmail" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TDVMaKH" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="TDVKhoa" Relationship="Self.FK_TDVSinhVien_TDVKhoa" FromRole="TDVSinhVien" ToRole="TDVKhoa" />
+  </EntityType>
+  <Association Name="FK_TDVSinhVien_TDVKhoa">
+    <End Role="TDVKhoa" Type="Self.TDVKhoa" Multiplicity="0..1" />
+    <End Role="TDVSinhVien" Type="Self.TDVSinhVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TDVKhoa">
+        <PropertyRef Name="TDVMaKH" />
+      </Principal>
+      <Dependent Role="TDVSinhVien">
+        <PropertyRef Name="TDVMaKH" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="TDVK22CNT3Lesson07DbEntities2" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="TDVKhoas" EntityType="Self.TDVKhoa" />
+    <EntitySet Name="TDVSinhViens" EntityType="Self.TDVSinhVien" />
+    <AssociationSet Name="FK_TDVSinhVien_TDVKhoa" Association="Self.FK_TDVSinhVien_TDVKhoa">
+      <End Role="TDVKhoa" EntitySet="TDVKhoas" />
+      <End Role="TDVSinhVien" EntitySet="TDVSinhViens" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
